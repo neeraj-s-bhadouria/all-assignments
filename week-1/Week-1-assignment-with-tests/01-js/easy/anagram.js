@@ -7,8 +7,20 @@
   - `npm run test-anagram`
 */
 
+//write a program to find if two strings are anagram
 function isAnagram(str1, str2) {
-
+  //removing spaces from strings and convering them into lowercase
+  str1 = str1.replace(/\s/g, '').toLowerCase();
+  str2 = str2.replace(/\s/g, '').toLowerCase();
+  if(str1.length == str2.length){
+    str1 = str1.split('').sort().join('');
+    str2 = str2.split('').sort().join('');
+    if(str1 == str2) {
+      return true;
+    }
+    return false;    
+  }
+  return false;
 }
 
 module.exports = isAnagram;
