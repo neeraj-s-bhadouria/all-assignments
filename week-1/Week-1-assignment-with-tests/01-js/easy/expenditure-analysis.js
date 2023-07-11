@@ -8,8 +8,22 @@
   - `npm run test-expenditure-analysis`
 */
 
+//using this approach as I am new to JS, but will find a shorter way to do this later.
 function calculateTotalSpentByCategory(transactions) {
-  return [];
+  var result = {}
+  var resultList = []
+  transactions.map(transaction => {
+    if(result.hasOwnProperty(transaction.category)) {
+      result[transaction.category] = result[transaction.category] + transaction.price;
+    } else {
+      result[transaction.category] = transaction.price;
+    }
+  });
+  
+  for(var prop in result) {
+    resultList.push({ category: prop, totalSpent: result[prop] });
+  }
+  return resultList;
 }
 
 module.exports = calculateTotalSpentByCategory;
