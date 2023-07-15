@@ -17,6 +17,43 @@
   - `npm run test-calculator`
 */
 
-class Calculator {}
+//Todo - Built calculate function as we can not use eval function of js.
+class Calculator {
+
+  constructor() {
+    this.result = 0;    
+  }
+
+  getResult() {
+    return this.result;
+  }
+
+  add(n) {
+    return this.result += n;
+  }
+
+  subtract(n) {
+    return this.result -= n;
+  }
+
+  multiply(n) {
+    return this.result *= n;
+  }
+
+  divide(n) {
+    if(n===0){
+      throw new Error();
+    }
+    return this.result /= n;
+  }
+
+  calculate(str) {
+    
+  }
+
+  clear() {
+    this.result = 0;
+  }
+}
 
 module.exports = Calculator;
