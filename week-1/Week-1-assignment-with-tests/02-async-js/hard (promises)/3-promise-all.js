@@ -31,11 +31,10 @@ function waitThreeSecond() {
 
 async function calculateTime() {
     const timeBefore = performance.now();
-    await waitOneSecond();
-    await waitTwoSecond();
-    await waitThreeSecond();
-    const timeAfter = performance.now();
-    console.log(`Time taken to execute all methods are ${(timeAfter-timeBefore)/1000} seconds.`);
+    Promise.all([waitOneSecond(), waitTwoSecond(), waitThreeSecond()]).then(function() {
+        const timeAfter = performance.now();
+        console.log(`Time taken to execute all methods are ${(timeAfter-timeBefore)/1000} seconds.`);
+    });
 }
 
 (async function(){
