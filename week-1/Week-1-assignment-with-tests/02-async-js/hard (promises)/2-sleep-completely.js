@@ -4,5 +4,15 @@
  */
 
 function sleep (seconds) {
-
+    return new Promise(resolve => {
+        setTimeout(function(){
+            resolve();
+        }, seconds);
+    });
 }
+
+(async function(){
+    console.log(new Date().toLocaleTimeString('it-IT'));
+    await sleep(5000);
+    console.log(new Date().toLocaleTimeString('it-IT'));
+})();
