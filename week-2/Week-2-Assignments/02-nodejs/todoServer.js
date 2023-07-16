@@ -46,4 +46,58 @@ const app = express();
 
 app.use(bodyParser.json());
 
+const todos = [];
+var id = 0;
+
+// app.listen(3000, (req, res) => {
+//   console.log(`server running at port 3000`);
+// });
+
+app.get('/todos', (req, res) => {
+  res.status(200).json(todos);
+});
+
+app.get('/todos/:id', async (req, res) => {
+  const todo  = await todos.find(todo => todo.id === parseInt(req.params.id));
+  if(!todo) {
+    res.status(404).send();
+  } else {
+    res.status(200).json(todo);
+  }
+});
+
+app.post('/todos', async (req, res) => {
+  const { title, completed, description } = req.body;
+  id += 1;
+  let todo = {id: id, title: title, completed: completed, description: description};
+  await todos.push(todo);
+  res.status(201).json(todo);
+});
+
+app.put('/todos/:id', async (req, res) => {
+  const todoNo = await todos.findIndex(todo => todo.id === parseInt(req.params.id));
+  if(todoNo === -1) {
+    res.status(404).send();
+  } else {
+    todos[todoNo].title = req.body.title;
+    todos[todoNo].completed = req.body.completed;
+    todos[todoNo].description = req.body.description;
+    res.status(200).json(todos[todoNo]);
+  }
+});
+
+app.delete('/todos/:id', async (req, res) => {
+  const todoNo = todos.findIndex(todo => todo.id === parseInt(req.params.id));
+  if(todoNo === -1) {
+    res.status(404).send();
+  } else {
+    todos.splice(todoNo, 1);
+    res.status(200).json(todos);
+  }
+});
+
+app.use((req, res, next) => {
+  res.status(404).send();
+});
+
 module.exports = app;
